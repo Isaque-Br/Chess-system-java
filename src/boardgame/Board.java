@@ -26,4 +26,14 @@ public class Board { // CLASSE TABULEIRO
     public void setColumns(int columns) {
         this.columns = columns;
     }
+
+    // METODO QUE RETORNO UM OBJETO DO TIPO PIECE / RECEBE ROW E COLUMN
+    public Piece piece(int row, int column) {
+        return pieces[row][column];  // RETORNA A MATRIX PIECES NA LINHA ROW E COLUNA COLUMN
+    }
+
+    // SOBRECARGA DO METODO PIECE ACIMA
+    public Piece piece(Position position) { // RETORNA PEÇA PELA POSIÇÃO
+        return pieces[position.getRow()][position.getColumn()];
+    }
 }
