@@ -30,6 +30,19 @@ Checklist:
         - Inheritance /
         - Downcasting
         - Static members
-        Layers pattem
+        Layers pattem // PADRÃO DE DESENVOLVIMENTO EM CAMADAS
     • Data Structures Topics:
         - Matrix
+________________________________________________________________________________-
+
+        Placing pieces on the board
+
+  Checklist:
+      • Methods: Board.PlacePiece(piece, position)
+      • Classes: Rook, King [public]
+      • Method: ChessMatch.InitialSetup
+      • OOP Topics:
+        - Inheritance
+        - Overriding
+        - Polymorphism (toString)
+

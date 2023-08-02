@@ -36,4 +36,9 @@ public class Board { // CLASSE TABULEIRO
     public Piece piece(Position position) { // RETORNA PEÇA PELA POSIÇÃO
         return pieces[position.getRow()][position.getColumn()];
     }
+
+    public void placePiece(Piece piece, Position position) { // METODO QUE RECEBE UMA PEÇA E UMA POSIÇÃO
+        pieces[position.getRow()][position.getColumn()] = piece;
+        piece.position = position; // RECEBENDO POSITION DO METODO
+    }
 }
