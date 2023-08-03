@@ -71,3 +71,11 @@ ________________________________________________________________________________
             - Overriding
             - Static members
             - Layers pattem
+____________________________________________________________________________________________
+
+        Little improvement in board printing
+
+   Color in terminal:
+         • Windows: Git [public]
+         • Class: ChessPosition [public]
+         • Mac: Google "osx terminal color"
