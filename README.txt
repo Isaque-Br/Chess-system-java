@@ -55,4 +55,19 @@ ________________________________________________________________________________
          • Implement.defensive programming in Board methods
          • OOP Topics:
             - Exception
-            - Constructons (a string must be informed to the exception)
+            - Constructors (a string must be informed to the exception)
+____________________________________________________________________________________________
+
+        ChessException and ChessPosition
+
+   Checklist:
+         • Class: ChessExceptions [public]
+         • Class: ChessPosition [public]
+         • Refactor ChessMatch.InitialSetup
+         • OOP Topics:
+            - Exception
+            - Encapsulation
+            - Constructors (a string must be informed to the exception)
+            - Overriding
+            - Static members
+            - Layers pattem
