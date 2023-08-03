@@ -79,3 +79,17 @@ ________________________________________________________________________________
          • Windows: Git [public]
          • Class: ChessPosition [public]
          • Mac: Google "osx terminal color"
+____________________________________________________________________________________________
+
+        Moving pieces
+
+   Checklist:
+        • Method Board.RemovePiece
+        • Method UI.ReadChessPosition
+        • Method ChessMatch.MakeMove
+            - Method ChessMatch.MakeMove
+            - Method ChessMatch.ValidadeSourcePosition
+        • Write basic logic on Program.cs
+        • OOP Topics:
+            - Exceptions
+            - Encapsulation

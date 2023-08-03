@@ -46,6 +46,19 @@ public class Board { // CLASSE TABULEIRO
         piece.position = position; // RECEBENDO POSITION DO METODO
     }
 
+    public Piece removePiece(Position position) { // METODO PARA RETIRAR PEÇA
+        if (!positionExists(position)) { // SE A POSIÇÃO QUE PASSEI NAO EXISTIR VOU LANÇAR EXCEPTION
+            throw new BoardException("Position not on the board");
+        }
+        if (piece(position) == null) { // SE A PEÇA DO TABUL DETA POSITION É NULL..
+            return null;
+        }
+        Piece aux = piece(position); // AUX RECEBE A PEÇA Q ESTÁ NO TABUL
+        aux.position = null; // PEÇA RETIRADA DO TABUL
+        pieces[position.getRow()][position.getColumn()] = null;
+        return aux;
+    }
+
     private boolean positionExists(int row, int column) { // METODO AUXILIAR RECEBENDO LINHA E COLUMN
        return row >= 0 && row < rows && column >= 0 && column < columns; // TESTAR SE TERÁ PEÇA PELA LINHA E COLUMN DO QUE A POSIÇÃO ABAIXO...
 
