@@ -16,7 +16,7 @@ ________________________________________________________________________________
         - Encapsulation / Access Modifiers
     • Data Structures Topics:
         - Matrix
---------------------------------------------------------------------------------------
+____________________________________________________________________________________________
 
 Checklist:
     • Methods: Board.Piece(row, column) and Board.Piece(position)
@@ -33,7 +33,7 @@ Checklist:
         Layers pattem // PADRÃO DE DESENVOLVIMENTO EM CAMADAS
     • Data Structures Topics:
         - Matrix
-________________________________________________________________________________-
+____________________________________________________________________________________________
 
         Placing pieces on the board
 
@@ -45,4 +45,14 @@ ________________________________________________________________________________
         - Inheritance
         - Overriding
         - Polymorphism (toString)
+____________________________________________________________________________________________
 
+        BoardException and defensive programming
+
+   Checklist:
+         • Class: BoardException [public]
+         • Methods: Board.PositionExists, Board.ThereIsAPiece [public]
+         • Implement.defensive programming in Board methods
+         • OOP Topics:
+            - Exception
+            - Constructons (a string must be informed to the exception)

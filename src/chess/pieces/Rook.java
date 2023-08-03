@@ -5,7 +5,7 @@ import chess.ChessPiece;
 import chess.Color;
 
 public class Rook extends ChessPiece {
-    public Rook(Board board, Color color) {
+    public Rook(Board board, Color color) { // CONSTUTOR QUE REPASSA A CHAMADA PRA SUPER CLASS
         super(board, color);
     }
 

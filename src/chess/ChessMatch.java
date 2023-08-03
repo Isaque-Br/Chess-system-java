@@ -26,7 +26,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         return mat;
     }
 
-    // METODO RESPONSAVEL POR INICIAR A PARTIDA DE XADREZ
+    // METODO RESPONSAVEL POR INICIAR A PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABUL
     private void initialSetup() {
         board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
         board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
