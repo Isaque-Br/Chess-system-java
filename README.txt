@@ -130,4 +130,15 @@ RERAS BASICAS DA TORRE.
 Dado uma peça, os movimentos possiveis dela, será uma matrix de valores boolean contendo os possiveis movimentos
 Nesta Matrix, terá os valores falsos e verdadeiros pra onde ela puder caminhar/mover.
 
+____________________________________________________________________________________________
 
+        Implementing possible moves of Rook
+
+    Checklist:
+     • Method ChessPiece.IsThereOpponentPiece(position) [protected]
+     • Implement Rook.PossibleMoves
+     • Method ChessMatch.ValidadeTargetPosition
+     • OOP Topics:
+        - Polymorphism
+        - Encapsulation / access modifers [protected]
+        - Exceptions

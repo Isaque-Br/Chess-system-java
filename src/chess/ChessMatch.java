@@ -32,6 +32,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         Position source = sourcePosition.toPosition(); // CONVERTENDO AS DUAS POSIÇÃO PARA POSIÇÃO DA MATRIX
         Position target = targetPosition.toPosition();
         validateSourcePosition(source); // VALIDANDO SE HAVIA UMA PEÇA NA POSIÇÃO DE ORIGEM, SE NÃO EXISITIR VAI LANÇAR EXCEPTION
+        validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target); // POSITION DE ORIGEM E DESTINO OPERAÇÃO QUE REALIZA O MOVIMENTO DA PEÇA
         return (ChessPiece) capturedPiece; // DOWNCASTING DA PEÇA CAPTURADA PARA TIPO PIECE
     }
@@ -49,6 +50,13 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         } // if PARA TESTAR SE EXISTE MOVIMENTO POSSIVEL PARA A PEÇA IR
         if (!board.piece(position).isThereAnyPossibleMove()) { // SE NÃO TIVER NENHUM MOVIMENTO POSSIVEL..
             throw new ChessException("There is no possible moves for the chosen piece");
+        }
+    }
+
+    // VALIDA SE A POSIÇÃO DE DESTINO  É VALIDA EM RELAÇÃO A POSIÇÃO DE DESTINO
+    private void validateTargetPosition(Position source, Position target) {
+        if (!board.piece(source).possibleMove(target)) { // SE PRA PEÇA DE ORIGEM A POSIÇÃO DE DESTINO NÃO É UM MOVIMENTO POSSIVEL...
+            throw new ChessException("The chosen piece can't move to target position");
         }
     }
 
