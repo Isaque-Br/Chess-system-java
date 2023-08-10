@@ -107,8 +107,27 @@ ________________________________________________________________________________
 
     • ChessException
     • InputMismatchException
+  ____________________________________________________________________________________________
 
+        Possible moves of a piece
 
+    Checklist:
+     • Methods in Piece:
+        – PossibleMoves [abstract]
+        - PossibleMove
+        - IsThereAnyPossibleMove
+     • Basic PossibleMove implementation for Rook and King
+     • Update ChessMatch.ValidadeSourcePosition
+     • OOP Topics:
+        - Abstract method / class
+        - Exceptions
 
+  Cada tipo de peça tem uma regra diferente para se mover.
+    - A Torre pode se mover tanto para horizontal(quantas casas quiser) idem na vertical
+Pode se mover para casas livres ou quando existir peça adversaria, que no caso, pode captura-la.
+RERAS BASICAS DA TORRE.
+
+Dado uma peça, os movimentos possiveis dela, será uma matrix de valores boolean contendo os possiveis movimentos
+Nesta Matrix, terá os valores falsos e verdadeiros pra onde ela puder caminhar/mover.
 
 

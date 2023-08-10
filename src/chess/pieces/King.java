@@ -13,4 +13,10 @@ public class King extends ChessPiece {
     public String toString() {
         return "K";
     }
+
+    @Override
+    public boolean[][] possibleMoves() { // MATRIX COM O MESMO NUMERO  DE LINHAS E COLUNA DO TABU
+        boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+        return mat;
+    }
 }

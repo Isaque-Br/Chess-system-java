@@ -13,4 +13,10 @@ public class Rook extends ChessPiece {
     public String toString() {
         return "R";  // CONVERTENDO UMA ROOK/TORRE PARA STRING
     }
+
+    @Override
+    public boolean[][] possibleMoves() { // MATRIX COM O MESMO NUMERO  DE LINHAS E COLUNA DO TABU
+        boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+        return mat;
+    }
 }

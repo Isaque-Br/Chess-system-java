@@ -46,6 +46,9 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
     private void validateSourcePosition(Position position) { // VALIDAÇÃO DA POSIÇÃO DE ORIGEM
         if (!board.thereIsAPiece(position)) { // SE NÃO EXISTIR UMA PEÇA NESTA POSIÇÃO, TERÁ UMA EXCEPTION
             throw new ChessException("There is no piece on source position");
+        } // if PARA TESTAR SE EXISTE MOVIMENTO POSSIVEL PARA A PEÇA IR
+        if (!board.piece(position).isThereAnyPossibleMove()) { // SE NÃO TIVER NENHUM MOVIMENTO POSSIVEL..
+            throw new ChessException("There is no possible moves for the chosen piece");
         }
     }
 
