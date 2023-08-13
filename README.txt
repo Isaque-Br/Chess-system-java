@@ -144,11 +144,25 @@ ________________________________________________________________________________
         - Exceptions
 ____________________________________________________________________________________________
 
-        Printing possible moves possible moves of Rook
+        Printing possible moves
 
     Checklist:
      • Method ChessMatch.PossibleMoves
      • Method UI.PrintBoard [overload]
      • Refactor main program logic
      • OOP Topics:
-        - Overloading
+        - Overloading // SOBRECARGA - QUANDO VOCE TEM MAIS DE UMA VERSÃO DO MESMO MÉTODO VARIANDO A LISTA DE PARAMETRO,
+____________________________________________________________________________________________
+
+         Implementing possible moves of king
+
+    Checklist:
+     • Method King.CanMove[position) [private]
+     • Implement King.PossibleMoves
+     • OOP Topics:
+       - Encapsulation
+       - Polymorphism
+
+        O rei.
+King pode mover apenas uma casa em qualquer uma das direções
+
