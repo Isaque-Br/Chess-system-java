@@ -166,3 +166,25 @@ ________________________________________________________________________________
         O rei.
 King pode mover apenas uma casa em qualquer uma das direções
 
+
+ Desclaimer - Nessa aula implementamos possiveis movimentos do King
+ Usamos conceitos  Orientados a Objeto de Encapsulamento,
+ e Polimorfismo, uma vez que estamos implementando comportamentos diferentes para cada tipo de peça
+
+____________________________________________________________________________________________
+
+        Switching player each turn
+
+     Checklist:
+      • Class ChessMatch:
+        - Properties Turn, CurrentPlayer [private set]
+        - Method NextTum [private]
+        - Update PerformChessMove
+        - Update ValidadeSourcePosition
+      • Method UI.PrintMatch
+      • OOP Topics:
+        - Encapsulation
+        - Exceptions
+____________________________________________________________________________________________
+
+

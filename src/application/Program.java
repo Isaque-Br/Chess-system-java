@@ -17,7 +17,7 @@ public class Program {
 
         while (true) {
             try {
-                UI.printBoard(chessMatch.getPieces()); // CLASSE USER INTERFACE RECEBENDO O METODO DA MATRIX DO BOARD DA PARTIDA
+                UI.printMatch(chessMatch); // CLASSE USER INTERFACE RECEBENDO O METODO DA MATRIX DO BOARD DA PARTIDA
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UI.readChessPosition(sc); // USUARIO DIGITANDO POSIÇÃO DE ORIGEM

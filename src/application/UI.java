@@ -1,5 +1,6 @@
 package application;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -46,6 +47,13 @@ public class UI {
         catch (RuntimeException e) { // QUALQUER RunTimeException QUE ACONTECER DE FORMATO OU OURA COISA..
             throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
         } // EXCEPTION DE ERRO DE ENTRADA DE DADOS
+    }
+
+    public static void printMatch(ChessMatch chessMatch) { // IMPRIINDO PARTIDA
+        printBoard(chessMatch.getPieces()); // IMPRIMI O TABUL
+        System.out.println(); // QUEBRA DE LINHA
+        System.out.println("Turn : " + chessMatch.getTurn()); // IMPRIME O TURNO
+        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer()); // ESPERANDO JOGADOR ATUAL JOGAR
     }
 
     // CRIANDO O METODO PRINTBOARD RECEBENDO MATRIX CHESSPIECE COM NOME DE PIECES

@@ -8,12 +8,32 @@ import chess.pieces.Rook;
 
 public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XADREZ
 
+    private int turn;
+    private Color currentPlayer;
     private Board board;
 
     // CONSTRUTOR QUE PRECISA DIZER O TAMANHO DO JOGO DE XADREZ - NESTA CLASS
     public ChessMatch() {
         board = new Board(8, 8); // CRIANDO O TABULEIRO 8 POR 8 E...INICIANDO SETUP
+        turn = 1;
+        currentPlayer = Color.WHITE;
         initialSetup(); // CHAMANDO O METODO DE INICIAR A PARTIDA NO CONSTRUTOR DA PARTIDA
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     // METODO QUE RETORNA UMA MATRIX DE PEÇAS DE XADREZ - CORRESPONDENTE A ESSA PARTIDA
@@ -40,6 +60,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         validateSourcePosition(source); // VALIDANDO SE HAVIA UMA PEÇA NA POSIÇÃO DE ORIGEM, SE NÃO EXISITIR VAI LANÇAR EXCEPTION
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target); // POSITION DE ORIGEM E DESTINO OPERAÇÃO QUE REALIZA O MOVIMENTO DA PEÇA
+        nextTurn(); // PARA TROCAR O TURNO
         return (ChessPiece) capturedPiece; // DOWNCASTING DA PEÇA CAPTURADA PARA TIPO PIECE
     }
 
@@ -54,6 +75,11 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         if (!board.thereIsAPiece(position)) { // SE NÃO EXISTIR UMA PEÇA NESTA POSIÇÃO, TERÁ UMA EXCEPTION
             throw new ChessException("There is no piece on source position");
         } // if PARA TESTAR SE EXISTE MOVIMENTO POSSIVEL PARA A PEÇA IR
+
+        // SE JOGADOR ATUAL != DA PEÇA NO BOARD .getColor QUE É PROPIEDADE DO ChessPiece ENTAO, FAREMOS DOWNCASTING
+        if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) { // EXCEPTION SE TENTAR MOVER PEÇA ADVERSARIA
+            throw new ChessException("The chosen piece is not yours");
+        }
         if (!board.piece(position).isThereAnyPossibleMove()) { // SE NÃO TIVER NENHUM MOVIMENTO POSSIVEL..
             throw new ChessException("There is no possible moves for the chosen piece");
         }
@@ -65,6 +91,11 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             throw new ChessException("The chosen piece can't move to target position");
         }
     }
+
+    private void nextTurn() { // METODO TROCA DE TURNO
+        turn++; // IMPLEMENTANDO - TURNO 1 QUE PASSA PARA O TURNO 2
+        currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+    }  //(CONDICIONAL TERNARIA:  SE O JOGADOR ATUAL == COLOR.WHITE ? ENTAO ELE VAI TER QUE SER O BLACK CASO : CONTRARO ELE VAI SER O COLOR.WHTE
 
     // METODO DE COLOCAR PEÇAS PASSANDO A ∏ØÍˆCÃO NAS CORDENADAS DO XADREZ
     private void placeNewPiece(char column, int row, ChessPiece piece) {
