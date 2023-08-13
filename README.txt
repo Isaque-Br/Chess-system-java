@@ -185,6 +185,23 @@ ________________________________________________________________________________
       • OOP Topics:
         - Encapsulation
         - Exceptions
+
+       - Nesta aula implementamos troca de turno e aplicamos conceitos de POO de encapsulamento e exceções
 ____________________________________________________________________________________________
 
+        Handling captured pieces
+
+     Checklist:
+      • Method UI.PrintCapturedPieces
+      • Update UI.PrintMatch
+      • Update Program logic
+      • Lists in ChessMatch: _piecesOnTheBoard, _capturedPieces
+        - Update constructor
+        - Update PlaceNewPiece
+        - Update makeMove
+      • OOP Topics:
+        - Encasulation
+        - Constructors
+      • Data Structures Topics:
+        - List
 

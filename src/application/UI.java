@@ -5,8 +5,11 @@ import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UI {
 
@@ -49,9 +52,10 @@ public class UI {
         } // EXCEPTION DE ERRO DE ENTRADA DE DADOS
     }
 
-    public static void printMatch(ChessMatch chessMatch) { // IMPRIINDO PARTIDA
+    public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) { // IMPRIINDO PARTIDA
         printBoard(chessMatch.getPieces()); // IMPRIMI O TABUL
         System.out.println(); // QUEBRA DE LINHA
+        printCapturedPieces(captured); // DEPOIS DE IMPRIMIR O TABULEIRO, IMPRIME LISTA DE PEÇAS CAPTURADAS
         System.out.println("Turn : " + chessMatch.getTurn()); // IMPRIME O TURNO
         System.out.println("Waiting player: " + chessMatch.getCurrentPlayer()); // ESPERANDO JOGADOR ATUAL JOGAR
     }
@@ -94,9 +98,25 @@ public class UI {
                 System.out.print(ANSI_RED + piece + ANSI_RESET);
             }
             else {
-                System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+                System.out.print(ANSI_PURPLE + piece + ANSI_RESET);
             }
         }
         System.out.print(" "); // PARA AS PEÇAS NÃO FICAR GRUDADAS
+    }
+
+    // METODO QUE RECEBE UMA LISTA DE PECAS DE XADREZ QUE SERÁ RESPONSAVEL POR IMPRIMIR PEÇAS CAPTURADAS
+    private static void printCapturedPieces(List<ChessPiece> captured) {
+        List<ChessPiece> white  = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList()); // OPERAÇÃO PARA FILTRAR A LIST
+        List<ChessPiece> black  = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
+        // LIST DE PEÇAS CAPTURES + COLOR + FILTRAGM DE LIST(CONCEITO EXPRESSAO LAMBDA) + PREDICATO PEGA X.GET COLOR(ELEMENTO DA LISTA)
+        System.out.println("Capture pieces:");
+        System.out.print("White: ");
+        System.out.print(ANSI_GREEN); // PARA GARANTIR QUE A LISTA IMPRESSA SEJA A COR BRANCA
+        System.out.println(Arrays.toString(white.toArray())); //IMPRIMINDO ARRAYS DE VALOR
+        System.out.print(ANSI_RESET); // RESETAR COR DA IMPRESSÃO
+        System.out.print("Black: ");
+        System.out.print(ANSI_YELLOW); // PARA GARANTIR QUE A LISTA IMPRESSA SEJA A COR BRANCA
+        System.out.println(Arrays.toString(black.toArray())); //IMPRIMINDO ARRAYS DE VALOR
+        System.out.print(ANSI_RESET); // RESETAR COR DA IMPRESSÃO
     }
 }

@@ -6,11 +6,18 @@ import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XADREZ
 
     private int turn;
     private Color currentPlayer;
     private Board board;
+
+    private List<Piece> piecesOnTheBoard = new ArrayList<>(); // LISTA DO BOARD INSTANCIADA QUANDO OBJETO ChessMatch FOR CRIADO / PODE COLOCAR NO CONATRUTOR TBM
+    private List<Piece> capturedPieces = new ArrayList<>(); // LISTA DE PEÇAS CAPTURADAS
+
 
     // CONSTRUTOR QUE PRECISA DIZER O TAMANHO DO JOGO DE XADREZ - NESTA CLASS
     public ChessMatch() {
@@ -68,6 +75,12 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         Piece p = board.removePiece(source); // REMOVE PIECE DA ORIGEM
         Piece capturedPiece = board.removePiece(target); // REMOVE POSSIVEL PE.CA QUE ESTEJA NA POSIÇÃO DE DESTINO
         board.placePiece(p, target); // COLOCANDO PEÇA QUE ESTAVA NA ORIGEM NO DESTINO
+
+        if (capturedPiece != null) { // SE A PEÇA CAPTURADA != D NULL...
+            piecesOnTheBoard.remove(capturedPiece); // REMOVE PECA DO TABUL
+            capturedPieces.add(capturedPiece); // E ADCIONA NA LIST DE PEÇAS CAPTURADAS
+        }
+
         return capturedPiece;
     }
 
@@ -99,7 +112,8 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
 
     // METODO DE COLOCAR PEÇAS PASSANDO A ∏ØÍˆCÃO NAS CORDENADAS DO XADREZ
     private void placeNewPiece(char column, int row, ChessPiece piece) {
-        board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        board.placePiece(piece, new ChessPosition(column, row).toPosition()); // COLOCANDO PEÇA NO TABULEIRO
+        piecesOnTheBoard.add(piece); // JA ADCIONA A PEÇA NA LISTA DE PEÇAS DO TABULEIRO
     }
 
     // METODO RESPONSAVEL POR INICIAR A PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABUL
