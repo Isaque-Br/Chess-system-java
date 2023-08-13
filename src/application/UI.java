@@ -53,8 +53,20 @@ public class UI {
         for (int i=0; i<pieces.length; i++) { // FOR QUE NUMERA AS LINHAS
             System.out.print((8 - i) + " ");
             for (int j=0; j<pieces.length; j++) {
-                printPiece(pieces[i][j]); // PARA IMPRIMIR AS PEÇAS
-            }
+                printPiece(pieces[i][j], false); // PARA IMPRIMIR AS PEÇAS
+            } // QUANDO FOR IMPRIMIR O TABUL SEM OS MOVE POSSIVEL, INDICANDO QUE NENHUMA PEÇA É PRA TER DUNDO COLORIDO
+            System.out.println(); // QUEBRA DE LINHA
+        }
+        System.out.println("  A B C D E F G H");
+
+    }
+
+    public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+        for (int i=0; i<pieces.length; i++) { // FOR QUE NUMERA AS LINHAS
+            System.out.print((8 - i) + " ");
+            for (int j=0; j<pieces.length; j++) {
+                printPiece(pieces[i][j], possibleMoves[i][j]); // PARA IMPRIMIR AS PEÇAS
+            } //METODO QUE VAI OU NAO COLORIR O FUNDO DEPENDENDO DA VARIAVEL background, CONSIDERANDO OS MOVE POSSIVEL
             System.out.println(); // QUEBRA DE LINHA
         }
         System.out.println("  A B C D E F G H");
@@ -62,9 +74,12 @@ public class UI {
     }
 
     // METODO AUXILIAR PARA IMPRIMIR UMA PEÇA
-    private static void printPiece(ChessPiece piece) { // RECEBENDO UMA PEÇA
+    private static void printPiece(ChessPiece piece, boolean background) { // RECEBENDO UMA PEÇA
+        if (background) {
+            System.out.print(ANSI_BLUE_BACKGROUND);
+        }
         if (piece == null) { // SE A PEÇA FOR IGUAL A NULO, SIGNIFICA QUE NÃO TINHA PEÇA NO TABULEIRO
-            System.out.print("-"); //...E IMPRIMI UM -
+            System.out.print("-" + ANSI_RESET); //...E IMPRIMI UM -
         }
         else { // CASO CONTRARIO, IMPRIMI A PEÇA
             if (piece.getColor() == Color.WHITE) {

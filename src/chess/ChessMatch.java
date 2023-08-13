@@ -27,6 +27,12 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         return mat;
     }
 
+    public boolean[][] possibleMoves(ChessPosition sourcePosition) {
+        Position position = sourcePosition.toPosition();
+        validateSourcePosition(position); // VALIDA POSIÇÃO DE ORIGEM DEPOIS QUE O USUARIO ENTRAR COM ELA
+        return board.piece(position).possibleMoves(); // RETORNA OS MOVIMENTOS POSSIVEIS DA PEÇA DESSA POSIÇÃO
+    }
+
     // METODO QUE PEGA A PEÇA DEPOSIÇÃO DE ORIGEM E A LEVA PARA A POSIÇÃO DE DESTINO
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition(); // CONVERTENDO AS DUAS POSIÇÃO PARA POSIÇÃO DA MATRIX

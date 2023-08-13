@@ -142,3 +142,13 @@ ________________________________________________________________________________
         - Polymorphism
         - Encapsulation / access modifers [protected]
         - Exceptions
+____________________________________________________________________________________________
+
+        Printing possible moves possible moves of Rook
+
+    Checklist:
+     • Method ChessMatch.PossibleMoves
+     • Method UI.PrintBoard [overload]
+     • Refactor main program logic
+     • OOP Topics:
+        - Overloading

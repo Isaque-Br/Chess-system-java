@@ -20,8 +20,10 @@ public class Program {
                 UI.printBoard(chessMatch.getPieces()); // CLASSE USER INTERFACE RECEBENDO O METODO DA MATRIX DO BOARD DA PARTIDA
                 System.out.println();
                 System.out.print("Source: ");
-                ChessPosition source = UI.readChessPosition(sc);
+                ChessPosition source = UI.readChessPosition(sc); // USUARIO DIGITANDO POSIÇÃO DE ORIGEM
 
+                boolean[][] possibleMoves = chessMatch.possibleMoves(source); // POSSIVEM MOVE A PARTIR DA POSIÇÃO IDA
+                UI.printBoard(chessMatch.getPieces(), possibleMoves); // IMPRIMINDO TABUL COM SOBRECARGA PARA IMPRIMIR POSSIVEL MOVE COLORIDO
                 System.out.println();
                 System.out.print("Target: ");
                 ChessPosition target = UI.readChessPosition(sc);
