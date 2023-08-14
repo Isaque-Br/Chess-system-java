@@ -58,6 +58,9 @@ public class UI {
         printCapturedPieces(captured); // DEPOIS DE IMPRIMIR O TABULEIRO, IMPRIME LISTA DE PEÇAS CAPTURADAS
         System.out.println("Turn : " + chessMatch.getTurn()); // IMPRIME O TURNO
         System.out.println("Waiting player: " + chessMatch.getCurrentPlayer()); // ESPERANDO JOGADOR ATUAL JOGAR
+        if (chessMatch.getCheck()) {
+            System.out.println("CHECK!");
+        }
     }
 
     // CRIANDO O METODO PRINTBOARD RECEBENDO MATRIX CHESSPIECE COM NOME DE PIECES

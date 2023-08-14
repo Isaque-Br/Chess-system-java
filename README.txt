@@ -205,3 +205,23 @@ ________________________________________________________________________________
       • Data Structures Topics:
         - List
 
+      - Nesta aula fizemos o tratamento das peças capturadas e aplicamos POO Encapsulamento e Construtores
+____________________________________________________________________________________________
+
+        Check logic
+
+      Rules: / SIGNFICA QUE O SEU KING ESTÁ SOBRE AMEAÇA DE PELO MENOS UMA PEÇA DO SEU OPONENTE
+       • Check means your king under threat by at least one opponent piece
+       • You can't put yourself in check / VC NÃO PODE SE COLOCAR EM CHECK
+
+     Checklist:
+       • Property ChessPiece.ChessPosition [get]
+       • Class ChessMatch:
+         - Method UndoMove
+         - Property Check [private set]
+         - Method Opponent [private]
+         - Method King(color) [private]
+         - Method TestCheck
+         - Update PerformChessMove
+       • Update UI.PrintMatch
+

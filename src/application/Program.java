@@ -37,7 +37,7 @@ public class Program {
                 if (capturedPiece != null) { // SE PEÇA CAPTURADA FOR DIFERENTE DE NULL, SIGNIFICA Q ALGUMA PECA FOI CAPTURADA
                     captured.add(capturedPiece); // ACRESCENTA A PEÇA PARA LISTA DE CAPTURADAS
                 }
-            }
+           }
             catch (ChessException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();

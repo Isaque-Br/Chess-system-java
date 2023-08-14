@@ -8,12 +8,14 @@ import chess.pieces.Rook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XADREZ
 
     private int turn;
     private Color currentPlayer;
     private Board board;
+    private boolean check;
 
     private List<Piece> piecesOnTheBoard = new ArrayList<>(); // LISTA DO BOARD INSTANCIADA QUANDO OBJETO ChessMatch FOR CRIADO / PODE COLOCAR NO CONATRUTOR TBM
     private List<Piece> capturedPieces = new ArrayList<>(); // LISTA DE PEÇAS CAPTURADAS
@@ -24,6 +26,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         board = new Board(8, 8); // CRIANDO O TABULEIRO 8 POR 8 E...INICIANDO SETUP
         turn = 1;
         currentPlayer = Color.WHITE;
+        check = false; // SÓ PRA ENFATIZAR O FALSE
         initialSetup(); // CHAMANDO O METODO DE INICIAR A PARTIDA NO CONSTRUTOR DA PARTIDA
     }
 
@@ -33,6 +36,10 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
 
     public Color getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public boolean getCheck() { // METODO GETCHECK PARA TER ACESSO NO PROGRAMA PRINCIPL
+        return check;
     }
 
     public Board getBoard() {
@@ -67,6 +74,15 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         validateSourcePosition(source); // VALIDANDO SE HAVIA UMA PEÇA NA POSIÇÃO DE ORIGEM, SE NÃO EXISITIR VAI LANÇAR EXCEPTION
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target); // POSITION DE ORIGEM E DESTINO OPERAÇÃO QUE REALIZA O MOVIMENTO DA PEÇA
+
+        if (testCheck(currentPlayer)) {
+            undoMove(source, target, capturedPiece);
+            throw new ChessException("You can't put yourself in check");
+        }
+
+        // SE TESTCHECK DO OPONENT DO CURRENTPLAYER SE TRUE, PARTIDA EM CHECK SENAO: NAO ESTA EM CHECK
+        check = (testCheck(opponent(currentPlayer))) ? true : false;
+
         nextTurn(); // PARA TROCAR O TURNO
         return (ChessPiece) capturedPiece; // DOWNCASTING DA PEÇA CAPTURADA PARA TIPO PIECE
     }
@@ -82,6 +98,19 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         }
 
         return capturedPiece;
+    }
+
+    // METODO PARA DESFAZER MOVIMENTO, RECEBENDO POSIÇÃO DE ORIGEM, DE TARGET E UMA POSSIVEL PEÇA CAPTURADA
+    private void undoMove(Position source, Position target, Piece capturedPiece) {
+        Piece p = board.removePiece(target); // TIRANDO PEÇA QUE MOVEU PARA DESTINO
+        board.placePiece(p, source);// COLOCANDO PEÇA DE VOLTA NA POSIÇÃO DE ORIGEM
+
+        if (capturedPiece != null) {
+            board.placePiece(capturedPiece, target); // VOLTANDO PEÇA CAPTRED PARA POSIÇÃO DE DESTINO
+            capturedPieces.remove(capturedPiece); // TIRANDO A PEÇA DE LIST DE PEÇA CAPTURED
+            piecesOnTheBoard.add(capturedPiece); // ADD NA LIST DE PEÇA DO TABULEIRO
+        }
+
     }
 
     private void validateSourcePosition(Position position) { // VALIDAÇÃO DA POSIÇÃO DE ORIGEM
@@ -109,6 +138,36 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         turn++; // IMPLEMENTANDO - TURNO 1 QUE PASSA PARA O TURNO 2
         currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }  //(CONDICIONAL TERNARIA:  SE O JOGADOR ATUAL == COLOR.WHITE ? ENTAO ELE VAI TER QUE SER O BLACK CASO : CONTRARO ELE VAI SER O COLOR.WHTE
+
+    private Color opponent(Color color) {
+        return (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
+    }
+
+    // METODO PARA LOCALIZAR UM KING DE UMA DETERMINADA COR
+    private ChessPiece king(Color color) { // FORMA PADRAO DE SE FILTRAR UMA LIST COM EXPRESSÃO LAMBDA
+        List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+        for (Piece p : list) { // PRA CADA PEÇA P NA LIST ...
+            if (p instanceof King) { // SE A PEÇA P FOR INSTANCIA DE KING...
+                return (ChessPiece) p; // SIGNIFICA QUE ENCONTROU O REI
+            }
+        }
+        throw new IllegalStateException("There is no " + color + " kng on the board");
+    }
+
+    private boolean testCheck(Color color) {
+        Position kingPosition = king(color).getChessPosition().toPosition();
+        List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == opponent(color)).collect(Collectors.toList());
+        for (Piece p : opponentPieces) { // PARA CADA PEÇA p NA LISTA: DE PEÇAS DO OPONENT...TESTAREI MOV POSSIVEL
+            boolean[][] mat = p.possibleMoves(); //
+            // MATRIX DE MOVIMENTOS POSSIVEIS DESSA PE.CA ADVERSARIA p
+            if (mat[kingPosition.getRow()][kingPosition.getColumn()]) { // SE NESSA MATRIX NA LINHA KINGPOSI E COLUMNPOSI..
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     // METODO DE COLOCAR PEÇAS PASSANDO A ∏ØÍˆCÃO NAS CORDENADAS DO XADREZ
     private void placeNewPiece(char column, int row, ChessPiece piece) {
