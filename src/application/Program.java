@@ -18,7 +18,7 @@ public class Program {
         ChessMatch chessMatch = new ChessMatch();
         List<ChessPiece> captured = new ArrayList<>(); // ESSA LISTA DE PEÇAS CAPTURED VAI PASSAR TB COMO ARGUMENTO PARA IMPRIMIR PARTIDA
 
-        while (true) {
+        while (!chessMatch.getCheckMate()) {  // ENQUANTO A PARTIDA NAO ESTIVER EM CHECKMATE, VAI RODAR O PROGRAMA
             try {
                 UI.printMatch(chessMatch, captured); // CLASSE USER INTERFACE RECEBENDO O METODO DA MATRIX DO BOARD DA PARTIDA
                 System.out.println();
@@ -47,5 +47,6 @@ public class Program {
                 sc.nextLine();
             }
         }
+        UI.printMatch(chessMatch, captured); // MOSTRANDO PARTIDA FINALIZADA
     }
 }

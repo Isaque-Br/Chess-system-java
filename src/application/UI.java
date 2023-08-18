@@ -56,10 +56,17 @@ public class UI {
         printBoard(chessMatch.getPieces()); // IMPRIMI O TABUL
         System.out.println(); // QUEBRA DE LINHA
         printCapturedPieces(captured); // DEPOIS DE IMPRIMIR O TABULEIRO, IMPRIME LISTA DE PEÇAS CAPTURADAS
+        System.out.println();
         System.out.println("Turn : " + chessMatch.getTurn()); // IMPRIME O TURNO
-        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer()); // ESPERANDO JOGADOR ATUAL JOGAR
-        if (chessMatch.getCheck()) {
-            System.out.println("CHECK!");
+        if (!chessMatch.getCheckMate()) { // SE NAO TIVER EM CHECKMATE...
+            System.out.println("Waiting player: " + chessMatch.getCurrentPlayer()); // ESPERANDO JOGADOR ATUAL JOGAR
+            if (chessMatch.getCheck()) { // SE ESTIVER EM CHECK!
+                System.out.println("CHECK!");
+            }
+        }
+        else {
+            System.out.println("CHECKMATE!");
+            System.out.println("Winner: " + chessMatch.getCurrentPlayer());
         }
     }
 
@@ -97,11 +104,11 @@ public class UI {
             System.out.print("-" + ANSI_RESET); //...E IMPRIMI UM -
         }
         else { // CASO CONTRARIO, IMPRIMI A PEÇA
-            if (piece.getColor() == Color.WHITE) {
-                System.out.print(ANSI_RED + piece + ANSI_RESET);
+            if (piece.getColor() == Color.YELLOW) {
+                System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
             }
             else {
-                System.out.print(ANSI_PURPLE + piece + ANSI_RESET);
+                System.out.print(ANSI_BLUE + piece + ANSI_RESET);
             }
         }
         System.out.print(" "); // PARA AS PEÇAS NÃO FICAR GRUDADAS
@@ -109,17 +116,17 @@ public class UI {
 
     // METODO QUE RECEBE UMA LISTA DE PECAS DE XADREZ QUE SERÁ RESPONSAVEL POR IMPRIMIR PEÇAS CAPTURADAS
     private static void printCapturedPieces(List<ChessPiece> captured) {
-        List<ChessPiece> white  = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList()); // OPERAÇÃO PARA FILTRAR A LIST
-        List<ChessPiece> black  = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
+        List<ChessPiece> yellow  = captured.stream().filter(x -> x.getColor() == Color.YELLOW).collect(Collectors.toList()); // OPERAÇÃO PARA FILTRAR A LIST
+        List<ChessPiece> blue  = captured.stream().filter(x -> x.getColor() == Color.BLUE).collect(Collectors.toList());
         // LIST DE PEÇAS CAPTURES + COLOR + FILTRAGM DE LIST(CONCEITO EXPRESSAO LAMBDA) + PREDICATO PEGA X.GET COLOR(ELEMENTO DA LISTA)
         System.out.println("Capture pieces:");
-        System.out.print("White: ");
-        System.out.print(ANSI_GREEN); // PARA GARANTIR QUE A LISTA IMPRESSA SEJA A COR BRANCA
-        System.out.println(Arrays.toString(white.toArray())); //IMPRIMINDO ARRAYS DE VALOR
-        System.out.print(ANSI_RESET); // RESETAR COR DA IMPRESSÃO
-        System.out.print("Black: ");
+        System.out.print("Yellow: ");
         System.out.print(ANSI_YELLOW); // PARA GARANTIR QUE A LISTA IMPRESSA SEJA A COR BRANCA
-        System.out.println(Arrays.toString(black.toArray())); //IMPRIMINDO ARRAYS DE VALOR
+        System.out.println(Arrays.toString(yellow.toArray())); //IMPRIMINDO ARRAYS DE VALOR
+        System.out.print(ANSI_RESET); // RESETAR COR DA IMPRESSÃO
+        System.out.print("Blue: ");
+        System.out.print(ANSI_BLUE); // PARA GARANTIR QUE A LISTA IMPRESSA SEJA A COR BRANCA
+        System.out.println(Arrays.toString(blue.toArray())); //IMPRIMINDO ARRAYS DE VALOR
         System.out.print(ANSI_RESET); // RESETAR COR DA IMPRESSÃO
     }
 }

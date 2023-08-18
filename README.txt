@@ -224,4 +224,20 @@ ________________________________________________________________________________
          - Method TestCheck
          - Update PerformChessMove
        • Update UI.PrintMatch
+____________________________________________________________________________________________
+
+        Checkmate logic
+    Checklist:
+      • Class ChessMatch:
+        - Property Checkmate [private set]
+        - Method testCheckmate [private]
+        - Update PerformChessMove
+      • Update UI.PrintMatch
+      • Update Program logic
+
+
+
+
+
+
 
