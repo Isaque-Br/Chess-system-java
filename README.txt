@@ -276,4 +276,15 @@ ________________________________________________________________________________
             - Polymorphism
 // AS REGRAS BASICAS DO BISPO É QUE ELE SE MOVE NA DIAGONAL, ELE PODE SE MOVER QUANTAS CASAS QUISER,
 ELE NÃO PODE PULAR PEÇAS, ELE PODE CAPTURAR PEÇAS ADVERSARIAS,
+____________________________________________________________________________________________
 
+        Knight
+
+    Checklist:
+        • Class Knight
+        • Update ChessMatch.InitialSetup
+        • OOP Topics:
+            - Inheritance
+            - Encapsulation
+            - Polymorphism
+// O CAVALO TEM 8 MOVIMENTOS POSSIVEIS, ELE SE MOVE EM L, ELE PODE PULAR PEÇAS, ELE PODE CAPTURAR PEÇAS ADVERSARIAS,

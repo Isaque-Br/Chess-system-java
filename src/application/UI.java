@@ -98,7 +98,7 @@ public class UI { // USER INTERFACE PARA IMPRIMIR A PARTIDA
     // METODO AUXILIAR PARA IMPRIMIR UMA PEÇA
     private static void printPiece(ChessPiece piece, boolean background) { // RECEBENDO UMA PEÇA
         if (background) {
-            System.out.print(ANSI_BLUE_BACKGROUND);
+            System.out.print(ANSI_BLACK_BACKGROUND);
         }
         if (piece == null) { // SE A PEÇA FOR IGUAL A NULO, SIGNIFICA QUE NÃO TINHA PEÇA NO TABULEIRO
             System.out.print("-" + ANSI_RESET); //...E IMPRIMIR UM -
