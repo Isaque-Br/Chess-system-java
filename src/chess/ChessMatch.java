@@ -208,6 +208,9 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         placeNewPiece('a', 1, new Rook(board, Color.YELLOW));
         placeNewPiece('b', 1, new Knight(board, Color.YELLOW));
         placeNewPiece('c', 1, new Bishop(board, Color.YELLOW));
+        placeNewPiece('d', 1, new Queen(board, Color.YELLOW));
+
+
         placeNewPiece('e', 1, new King(board, Color.YELLOW));
         placeNewPiece('f', 1, new Bishop(board, Color.YELLOW));
         placeNewPiece('g', 1, new Knight(board, Color.YELLOW));
@@ -224,6 +227,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         placeNewPiece('a', 8, new Rook(board, Color.BLUE));
         placeNewPiece('b', 8, new Knight(board, Color.BLUE));
         placeNewPiece('c', 8, new Bishop(board, Color.BLUE));
+        placeNewPiece('d', 8, new Queen(board, Color.BLUE));
         placeNewPiece('e', 8, new King(board, Color.BLUE));
         placeNewPiece('f', 8, new Bishop(board, Color.BLUE));
         placeNewPiece('g', 8, new Knight(board, Color.BLUE));
