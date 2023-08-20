@@ -100,6 +100,24 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             capturedPieces.add(capturedPiece); // E ADCIONA NA LIST DE PEÇAS CAPTURADAS
         }
 
+        // # SPECIAL MOVE CASTLING KINGSIDE ROOK // TRATANDO O ROQUE PEQUENO
+        if (p instanceof King && target.getColumn() == source.getColumn() + 2) { // SE A PEÇA FOR UMA INSTANCIA DE KING E A COLUNA DE DESTINO FOR IGUAL A COLUNA DE ORIGEM + 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() + 3); // CRIANDO UMA POSIÇÃO
+            Position targetT = new Position(source.getRow(), source.getColumn() + 1); // CRIANDO UMA POSIÇÃO DE DESTINO DA TORRE
+            ChessPiece rook = (ChessPiece) board.removePiece(sourceT); // REMOVENDO A TORRE DA POSIÇÃO
+            board.placePiece(rook, targetT); // COLOCANDO A TORRE NA POSIÇÃO DE DESTINO
+            rook.increaseMoveCount(); // INCREMENTANDO O MOVIMENTO DA TORRE
+        }
+
+        // # SPECIAL MOVE CASTLING QUEENSIDE ROOK // TRATANDO O ROQUE GRANDE
+        if (p instanceof King && target.getColumn() == source.getColumn() - 2) { // SE A PEÇA FOR UMA INSTANCIA DE KING E A COLUNA DE DESTINO FOR IGUAL A COLUNA DE ORIGEM - 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() - 4); // CRIANDO UMA POSIÇÃO DE ORIGEM DA TORRE
+            Position targetT = new Position(source.getRow(), source.getColumn() - 1); // CRIANDO UMA POSIÇÃO DE DESTINO DA TORRE
+            ChessPiece rook = (ChessPiece) board.removePiece(sourceT); // REMOVENDO A TORRE DA POSIÇÃO
+            board.placePiece(rook, targetT); // COLOCANDO A TORRE NA POSIÇÃO DE DESTINO
+            rook.increaseMoveCount(); // INCREMENTANDO A QUANTIDADE DE MOVIMENTOS DA TORRE
+        }
+
         return capturedPiece;
     }
 
@@ -115,6 +133,24 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             piecesOnTheBoard.add(capturedPiece); // ADD NA LIST DE PEÇA DO TABULEIRO
         }
 
+        // # PROCESSO INVERSO DO CASTLING, DESFAZ O ROQUE PEQUENO
+        // # SPECIAL MOVE CASTLING KINGSIDE ROOK // TRATANDO O ROQUE PEQUENO
+        if (p instanceof King && target.getColumn() == source.getColumn() + 2) { // SE A PEÇA FOR UMA INSTANCIA DE KING E A COLUNA DE DESTINO FOR IGUAL A COLUNA DE ORIGEM + 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() + 3); // CRIANDO UMA POSIÇÃO
+            Position targetT = new Position(source.getRow(), source.getColumn() + 1); // CRIANDO UMA POSIÇÃO DE DESTINO DA TORRE
+            ChessPiece rook = (ChessPiece) board.removePiece(targetT); // REMOVENDO A TORRE DA POSIÇÃO DE DESTINO
+            board.placePiece(rook, sourceT); // COLOCANDO A TORRE NA POSIÇÃO DE DESTINO
+            rook.increaseMoveCount(); // INCREMENTANDO O MOVIMENTO DA TORRE
+        }
+
+        // # SPECIAL MOVE CASTLING QUEENSIDE ROOK // TRATANDO O ROQUE GRANDE
+        if (p instanceof King && target.getColumn() == source.getColumn() - 2) { // SE A PEÇA FOR UMA INSTANCIA DE KING E A COLUNA DE DESTINO FOR IGUAL A COLUNA DE ORIGEM - 2 - ROQUE GRANDE
+            Position sourceT = new Position(source.getRow(), source.getColumn() - 4); // CRIANDO UMA POSIÇÃO DE ORIGEM DA TORRE
+            Position targetT = new Position(source.getRow(), source.getColumn() - 1); // CRIANDO UMA POSIÇÃO DE DESTINO DA TORRE
+            ChessPiece rook = (ChessPiece) board.removePiece(targetT); // REMOVENDO A TORRE DA POSIÇÃO
+            board.placePiece(rook, sourceT); // COLOCANDO A TORRE NA POSIÇÃO DE DESTINO
+            rook.increaseMoveCount(); // INCREMENTANDO A QUANTIDADE DE MOVIMENTOS DA TORRE
+        }
     }
 
     private void validateSourcePosition(Position position) { // VALIDAÇÃO DA POSIÇÃO DE ORIGEM
@@ -211,7 +247,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         placeNewPiece('d', 1, new Queen(board, Color.YELLOW));
 
 
-        placeNewPiece('e', 1, new King(board, Color.YELLOW));
+        placeNewPiece('e', 1, new King(board, Color.YELLOW, this));
         placeNewPiece('f', 1, new Bishop(board, Color.YELLOW));
         placeNewPiece('g', 1, new Knight(board, Color.YELLOW));
         placeNewPiece('h', 1, new Rook(board, Color.YELLOW));
@@ -228,7 +264,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         placeNewPiece('b', 8, new Knight(board, Color.BLUE));
         placeNewPiece('c', 8, new Bishop(board, Color.BLUE));
         placeNewPiece('d', 8, new Queen(board, Color.BLUE));
-        placeNewPiece('e', 8, new King(board, Color.BLUE));
+        placeNewPiece('e', 8, new King(board, Color.BLUE, this));
         placeNewPiece('f', 8, new Bishop(board, Color.BLUE));
         placeNewPiece('g', 8, new Knight(board, Color.BLUE));
         placeNewPiece('h', 8, new Rook(board, Color.BLUE));

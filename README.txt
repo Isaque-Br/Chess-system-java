@@ -301,3 +301,14 @@ ________________________________________________________________________________
             - Polymorphism
 // A RAINHA TEM OS MOVIMENTOS DA TORRE E DO BISPO, ELA PODE SE MOVER QUANTAS CASAS QUISER, ELA NÃO PODE PULAR PEÇAS,
 ELA PODE MOVER TANTO NA HORIZONTAL, QUANTO NA VERTICAL(CONFORME A TORRE)  QUANTO NA DIAGONAL(CONFORME O BISHOP
+____________________________________________________________________________________________________________________________________________________
+
+        Special move - Castling // ROQUE
+     Checklist:
+        • Update King
+        • Update ChessMatch.MakeMove
+        • Update ChessMatch.UndoMove
+// JOGADA ESPECIAL DO XADREZ, ONDE O REI SE MOVE DUAS CASAS PARA A ESQUERDA OU PARA A DIREITA, E A TORRE MOVE PARA A CASA DO LADO DO REI
+
+
+![Roque](https://github.com/Zake77/Chess-system-java/assets/105455950/7b18c427-0945-46db-bef9-8459b94017f5)
