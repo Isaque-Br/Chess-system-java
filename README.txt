@@ -263,6 +263,17 @@ ________________________________________________________________________________
 // O PEÃO SÓ PODE SE MOVER UMA CASA PRA FRENTE, SE FOR O PRIMEIRO MOVIMENTO, ELE PODE SE MOVER DUAS CASAS,
 SE TIVER UMA PEÇA ADVERSARIA NA DIAGONAL, ELE PODE CAPTURA-LA,
 O PEÃO PRETO SEMPRE SE MOVE PRA BAIXO, E O PEÃO BRANCO SEMPRE SE MOVE PRA CIMA
+____________________________________________________________________________________________
 
+        Bishop
 
+    Checklist:
+        • Class Bishop
+        • Update ChessMatch.InitialSetup
+        • OOP Topics:
+            - Inheritance
+            - Encapsulation
+            - Polymorphism
+// AS REGRAS BASICAS DO BISPO É QUE ELE SE MOVE NA DIAGONAL, ELE PODE SE MOVER QUANTAS CASAS QUISER,
+ELE NÃO PODE PULAR PEÇAS, ELE PODE CAPTURAR PEÇAS ADVERSARIAS,
 
