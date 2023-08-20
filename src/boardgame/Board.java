@@ -4,7 +4,7 @@ public class Board { // CLASSE TABULEIRO
 
     private int rows;  //QUANTIDADE DE LINHAS DO TABULEIRO
     private int columns; // QUANTIDADE DE COLUNAS DO TABULEIRO
-    private Piece[][] pieces;  // MATRIZ DE PEÇAS
+    private Piece[][] pieces;  // MATRIZ DE PEÇAS DO TIPO Piece
 
     public Board(int rows, int columns) { // QUANDO CRIAR TABU LINHA E COLUM TEM Q TER AO MINIMO 1
         if (rows < 1 || columns < 1) {

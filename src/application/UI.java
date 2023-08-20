@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class UI {
+public class UI { // USER INTERFACE PARA IMPRIMIR A PARTIDA
 
     // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 
@@ -84,9 +84,9 @@ public class UI {
     }
 
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
-        for (int i=0; i<pieces.length; i++) { // FOR QUE NUMERA AS LINHAS
+        for (int i=0; i<pieces.length; i++) { // FOR QUE PERCORRE AS LINHAS
             System.out.print((8 - i) + " ");
-            for (int j=0; j<pieces.length; j++) {
+            for (int j=0; j<pieces.length; j++) { // FOR PARA PERCORRER AS COLUNAS
                 printPiece(pieces[i][j], possibleMoves[i][j]); // PARA IMPRIMIR AS PEÇAS
             } //METODO QUE VAI OU NAO COLORIR O FUNDO DEPENDENDO DA VARIAVEL background, CONSIDERANDO OS MOVE POSSIVEL
             System.out.println(); // QUEBRA DE LINHA
@@ -101,7 +101,7 @@ public class UI {
             System.out.print(ANSI_BLUE_BACKGROUND);
         }
         if (piece == null) { // SE A PEÇA FOR IGUAL A NULO, SIGNIFICA QUE NÃO TINHA PEÇA NO TABULEIRO
-            System.out.print("-" + ANSI_RESET); //...E IMPRIMI UM -
+            System.out.print("-" + ANSI_RESET); //...E IMPRIMIR UM -
         }
         else { // CASO CONTRARIO, IMPRIMI A PEÇA
             if (piece.getColor() == Color.YELLOW) {

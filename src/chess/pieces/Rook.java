@@ -12,7 +12,7 @@ public class Rook extends ChessPiece {
 
     @Override
     public String toString() {
-        return "R";  // CONVERTENDO UMA ROOK/TORRE PARA STRING
+        return "R";  // REPRESENTAÇÃO DA PEÇA NO TABULEIRO
     }
 
     @Override

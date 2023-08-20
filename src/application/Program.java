@@ -10,8 +10,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Program {
-
+// ESSA APLICAÇÃO USARÁ A CAMADA DE XADREZ, PACOTE CHESS
+public class Program {  // CLASSE DA APICAÇÃO QUE VAI USAR A CAMADA DE XADREZ
+                        // ESSA CLASSE VAI INTERAGIR NO MODO CONSOLE COM O USUARIO E VAI IMPRIMIR A PARTIDA
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);

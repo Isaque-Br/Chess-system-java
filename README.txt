@@ -234,7 +234,20 @@ ________________________________________________________________________________
         - Update PerformChessMove
       • Update UI.PrintMatch
       • Update Program logic
+____________________________________________________________________________________________
 
+        Piece move count // CONTAGEM DOS MOVIMENTOS DAS PEÇAS
+
+    Checklist:
+        • Class ChessPiece:
+            - Property MoveCount [private set]
+            - Method IncreaseMoveCount [protected]
+            - Method DecreaseMoveCount [protected]
+        • Class ChessMatch:
+            - Update MakeMove
+            - Update UndoMove
+        • OOP Topics:
+            - Encapsulation
 
 
 

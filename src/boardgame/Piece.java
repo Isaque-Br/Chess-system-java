@@ -2,20 +2,20 @@ package boardgame;
 
 public abstract class Piece { // CLASSE PEÇA
 
-    // PRA NÃO SER VISIVEL NA CAMADA DE XADREZ
+    // POSIÇÃO SIMPLES DE MATRIX PRA NÃO SER VISIVEL NA CAMADA DE XADREZ
     protected Position position;
 
-    private Board board;
+    private Board board; // PEÇA TEM UMA REFERENCIA PARA O TABULEIRO / ASSOCIAÇÃO
 
-    public Piece(Board board) { // COSTRUTOR APENAS COM TABULEIRO NA HORA DE CRIAR A PEÇA
+    public Piece(Board board) { // COSTRUTOR PRA CRIAR PIECE TEM QUE CRIAR O BOARD
         this.board = board;
-        position = null; // POSIÇÃO DE UMA PEÇA RECEM CRIADA IGUAL NULO
+        position = null; // POSIÇÃO DE UMA PEÇA RECEM CRIADA IGUAL NULO / NÃO FOI COLOCADO NA TABULEIRO AINDA
     }
 
-    // SOMENTE CLASSES E SUBCLSSES DENTRO DO MESMO PACOTE PODERÃO TER ACESSO AO TABULEIRO DE UMA PEÇA
+    // SOMENTE CLASSES DENTRO DO MESMO PACOTE E SUBCLSSES(ChessPiece) E PEÇAS ESPECIFICAS COMO, KING, BISHOP..  PODERÃO TER ACESSO AO TABULEIRO DE UMA PEÇA
     protected Board getBoard() {
         return board;
-    }
+    } // DE USO INTERNO DA CAMADA BOARDGAME
 
     public abstract boolean[][] possibleMoves(); // MOVIMENTOS POSSIVEIS DE UMA PEÇA GENERICA POR ISSO ABSTRATA
 

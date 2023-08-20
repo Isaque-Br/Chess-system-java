@@ -9,12 +9,12 @@ import chess.pieces.Rook;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+                            //  ONDE TEM AS REGRAS DO JOGO DE XADREZ
 public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XADREZ
 
     private int turn;
     private Color currentPlayer;
-    private Board board;
+    private Board board; // ASSOCIAÇÃO COM TABULEIRO
     private boolean check;
     private boolean checkMate;
 
@@ -91,7 +91,8 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
     }
 
     private Piece makeMove(Position source, Position target) { // METODO QUE MOVIMENTA DE DESTINO ORIGEM PARA DESTINO
-        Piece p = board.removePiece(source); // REMOVE PIECE DA ORIGEM
+        ChessPiece p = (ChessPiece) board.removePiece(source); // REMOVE PIECE DA ORIGEM
+        p.increaseMoveCount(); // QUANDO FOR MOVER A PEÇA INCREMENTA O MOVIMENTO DELA
         Piece capturedPiece = board.removePiece(target); // REMOVE POSSIVEL PEÇA QUE ESTEJA NA POSIÇÃO DE DESTINO
         board.placePiece(p, target); // COLOCANDO PEÇA QUE ESTAVA NA ORIGEM NO DESTINO
 
@@ -105,7 +106,8 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
 
     // METODO PARA DESFAZER MOVIMENTO, RECEBENDO POSIÇÃO DE ORIGEM, DE TARGET E UMA POSSIVEL PEÇA CAPTURADA
     private void undoMove(Position source, Position target, Piece capturedPiece) {
-        Piece p = board.removePiece(target); // TIRANDO PEÇA QUE MOVEU PARA DESTINO
+        ChessPiece p = (ChessPiece) board.removePiece(target); // TIRANDO PEÇA QUE MOVEU PARA DESTINO
+        p.decreaseMoveCount(); //  DECREMENTANDO O MOVIMENTO DA PEÇA
         board.placePiece(p, source);// COLOCANDO PEÇA DE VOLTA NA POSIÇÃO DE ORIGEM
 
         if (capturedPiece != null) {
@@ -171,7 +173,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
     }
 
     private boolean testCheckMate(Color color) {
-        if (!testCheck(color)) { // SE ESSA CR NAO TIVER EM CHECK
+        if (!testCheck(color)) { // SE ESSA COR NAO TIVER EM CHECK
             return false;       // SIGNIFICA QUE TB NAO ESTA EM CHECKMATE
         } // LISTA PEGANDO TODAS AS PEÇAS DO TABULEIRO E FILTRA COLOR DO PARAMETRO
         List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
