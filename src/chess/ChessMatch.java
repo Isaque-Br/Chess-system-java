@@ -4,6 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Rook;
 
 import java.util.ArrayList;
@@ -142,7 +143,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
     private void nextTurn() { // METODO TROCA DE TURNO
         turn++; // IMPLEMENTANDO - TURNO 1 QUE PASSA PARA O TURNO 2
         currentPlayer = (currentPlayer == Color.YELLOW) ? Color.BLUE : Color.YELLOW;
-    }  //(CONDICIONAL TERNARIA:  SE O JOGADOR ATUAL == COLOR.WHITE ? ENTAO ELE VAI TER QUE SER O BLACK CASO : CONTRARO ELE VAI SER O COLOR.WHTE
+    }  //(CONDICIONAL TERNARIA:  SE O JOGADOR ATUAL == COLOR.YELLOW ? ENTAO ELE VAI TER QUE SER O BLUE CASO : CONTRARO ELE VAI SER O COLOR.WHTE
 
     private Color opponent(Color color) {
         return (color == Color.YELLOW) ? Color.BLUE : Color.YELLOW;
@@ -206,11 +207,28 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
 
     // METODO RESPONSAVEL POR INICIAR A PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABUL
     private void initialSetup() {
-        placeNewPiece('h', 7, new Rook(board, Color.YELLOW));
-        placeNewPiece('d', 1, new Rook(board, Color.YELLOW));
+        placeNewPiece('a', 1, new Rook(board, Color.YELLOW));
         placeNewPiece('e', 1, new King(board, Color.YELLOW));
+        placeNewPiece('h', 1, new Rook(board, Color.YELLOW));
+        placeNewPiece('a', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('b', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('c', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('d', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('e', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('f', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('g', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('h', 2, new Pawn(board, Color.YELLOW));
 
-        placeNewPiece('b', 8, new Rook(board, Color.BLUE));
-        placeNewPiece('a', 8, new King(board, Color.BLUE));
+        placeNewPiece('a', 8, new Rook(board, Color.BLUE));
+        placeNewPiece('e', 8, new King(board, Color.BLUE));
+        placeNewPiece('h', 8, new Rook(board, Color.BLUE));
+        placeNewPiece('a', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('b', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('c', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('d', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('e', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('f', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('g', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('h', 7, new Pawn(board, Color.BLUE));
     }
 }

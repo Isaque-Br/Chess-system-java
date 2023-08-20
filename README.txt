@@ -248,9 +248,21 @@ ________________________________________________________________________________
             - Update UndoMove
         • OOP Topics:
             - Encapsulation
+____________________________________________________________________________________________
 
+        Pawn
 
+    Checklist:
+        • Class Pawn:
+        • Update ChessMatch.InitialSetup
+        • ooP Topics:
+            - Inheritance
+            - Encapsulation
+            - Polymorphism
 
+// O PEÃO SÓ PODE SE MOVER UMA CASA PRA FRENTE, SE FOR O PRIMEIRO MOVIMENTO, ELE PODE SE MOVER DUAS CASAS,
+SE TIVER UMA PEÇA ADVERSARIA NA DIAGONAL, ELE PODE CAPTURA-LA,
+O PEÃO PRETO SEMPRE SE MOVE PRA BAIXO, E O PEÃO BRANCO SEMPRE SE MOVE PRA CIMA
 
 
 
