@@ -312,3 +312,16 @@ ________________________________________________________________________________
 
 
 ![Roque](https://github.com/Zake77/Chess-system-java/assets/105455950/7b18c427-0945-46db-bef9-8459b94017f5)
+____________________________________________________________________________________________________________________________________________________
+
+        Special move - En passant // CAPTURA EN PASSANT
+    Checklist:
+        • Register a pawn which can be captured en passant by en passant on next turn
+            - Property ChessMatch.EnPassantVulnerable
+            - Update ChessMatch.PerformChessMove
+        • update Pawn.PossibleMoves
+        • Update ChessMatch.MakeMove
+        • Update ChessMatch.UndoMove
+        • Update ChessMatch.InitialSetup
+// CAPTURA EN PASSANT, É UMA JOGADA ESPECIAL DO XADREZ, ONDE O PEÃO SE MOVE DUAS CASAS, E O ADVERSARIO PODE CAPTURA-LO COMO SE ELE TIVESSE SE MOVIMENTADO APENAS UMA CASA
+

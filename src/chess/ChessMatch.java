@@ -16,6 +16,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
     private Board board; // ASSOCIAÇÃO COM TABULEIRO
     private boolean check;
     private boolean checkMate;
+    private ChessPiece enPassantVulnerable; // PEÇA VULNERAVEL AO ENPASSANT
 
     private List<Piece> piecesOnTheBoard = new ArrayList<>(); // LISTA DO BOARD INSTANCIADA QUANDO OBJETO ChessMatch FOR CRIADO / PODE COLOCAR NO CONATRUTOR TBM
     private List<Piece> capturedPieces = new ArrayList<>(); // LISTA DE PEÇAS CAPTURADAS
@@ -44,6 +45,10 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
 
     public boolean getCheckMate() {
         return checkMate;
+    }
+
+    public ChessPiece getEnPassantVulnerable() {
+        return enPassantVulnerable;
     }
 
     // METODO QUE RETORNA UMA MATRIX DE PEÇAS DE XADREZ - CORRESPONDENTE A ESSA PARTIDA
@@ -76,6 +81,8 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             throw new ChessException("You can't put yourself in check");
         }
 
+        ChessPiece movedPiece = (ChessPiece)board.piece(target); // DOWNCASTING DA PEÇA QUE FOI MOVIDA
+
         // SE TESTCHECK DO OPONENT DO CURRENTPLAYER SE TRUE, PARTIDA EM CHECK SENAO: NAO ESTA EM CHECK
         check = (testCheck(opponent(currentPlayer))) ? true : false;
 
@@ -86,6 +93,15 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
 
             nextTurn(); // PARA TROCAR O TURNO
         }
+
+        // Special move en passant / SE A PEÇA MOVIDA FOI UM PEÃO ELA MOVEU DUAS CASAS DE 2 PRA + OU PRA - / = MOVIMENTO INICIAL DE 2 CASAS
+        if (movedPiece instanceof Pawn && (target.getRow() == source.getRow() - 2 || target.getRow() == source.getRow() + 2 )) {
+            enPassantVulnerable = movedPiece; // RECEBE PEÇA REMOVIDA / PEAO VULNERAVEL AO TOMAR /
+        }
+        else {
+            enPassantVulnerable = null; // NAO TEM NGM INVUNERAL PRA TOMAR ENPASSANT
+        }
+
             return (ChessPiece) capturedPiece; // DOWNCASTING DA PEÇA CAPTURADA PARA TIPO PIECE
     }
 
@@ -116,6 +132,22 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             ChessPiece rook = (ChessPiece) board.removePiece(sourceT); // REMOVENDO A TORRE DA POSIÇÃO
             board.placePiece(rook, targetT); // COLOCANDO A TORRE NA POSIÇÃO DE DESTINO
             rook.increaseMoveCount(); // INCREMENTANDO A QUANTIDADE DE MOVIMENTOS DA TORRE
+        }
+
+        // # Specialmove en passant
+        if (p instanceof Pawn) { //  PAWN ANDOU NA DIAGONAL E NÃO CAPTUROU PIECE SIGNIFICA QUE ROLOU EN PASSANT
+            if (source.getColumn() != target.getColumn() && capturedPiece == null) {
+                Position pawnPosition;
+                if (p.getColor() == Color.YELLOW) { // SE A COR DA PIECE QUE MOVEU FOR = A YELLOW, SIGNIFICA QUE A PIECE CAPTURED ESTA EM BAIXO DO PEAO YELLOW
+                    pawnPosition = new Position(target.getRow() + 1, target.getColumn()); // POSIÇÃO DO pawnPosition vai ser new Posiion na mesma posição de destino com linha/row + 1
+                }
+                else { // SENAO FOR UMA PIECE BLUE A SER CAPTURED, VAI SER UMA ROW ACIMA = -1
+                    pawnPosition = new Position(target.getRow() - 1, target.getColumn());
+                }
+                capturedPiece = board.removePiece(pawnPosition); // REMOVENDO O PEAO EN PASSANT DO TABULEIRO
+                capturedPieces.add(capturedPiece); // ADC PEAO NA LISTT DE PIECES CAPTURED
+                piecesOnTheBoard.remove(capturedPiece); // REMOVENDO A PIEE CAPTURED DO TABULEIRO
+            }
         }
 
         return capturedPiece;
@@ -150,6 +182,21 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             ChessPiece rook = (ChessPiece) board.removePiece(targetT); // REMOVENDO A TORRE DA POSIÇÃO
             board.placePiece(rook, sourceT); // COLOCANDO A TORRE NA POSIÇÃO DE DESTINO
             rook.increaseMoveCount(); // INCREMENTANDO A QUANTIDADE DE MOVIMENTOS DA TORRE
+        }
+
+        // # Specialmove en passant
+        if (p instanceof Pawn) { //  DESFAZENDO A JOGADA - A PEAO MOVEU NA DIAGONAL CAPTURED FOI A PEÇA VULNERAVEL EN PASSANT ?
+            if (source.getColumn() != target.getColumn() && capturedPiece == enPassantVulnerable) {
+                ChessPiece pawn = (ChessPiece)board.removePiece(target); // TIRANDO DO LUGAR ERRADO
+                Position pawnPosition;
+                if (p.getColor() == Color.YELLOW) { // SE A COR DA PIECE QUE MOVEU FOR = A YELLOW, VAI TER QUE DEVOLVER PRA LINHA 3
+                    pawnPosition = new Position(3, target.getColumn()); // POSIÇÃO DO pawnPosition vai ser new Posiion na mesma posição de destino com linha/row + 1
+                }
+                else { // SENAO, FOR UMA PIECE BLUE A SER CAPTURED, VAI TER QUE DEVOLVER PARA LINHA 4
+                    pawnPosition = new Position(4, target.getColumn());
+                }
+                board.placePiece(pawn, pawnPosition); // COLOCANDO A PEÇA DO LUGAR ERRADO NA POSIÇÃO QUE DECIDI
+            }
         }
     }
 
@@ -207,7 +254,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         return false;
     }
 
-    private boolean testCheckMate(Color color) {
+    private boolean testCheckMate(Color color) { // TESTAR SE O REI ESTA EM CHECKMATE
         if (!testCheck(color)) { // SE ESSA COR NAO TIVER EM CHECK
             return false;       // SIGNIFICA QUE TB NAO ESTA EM CHECKMATE
         } // LISTA PEGANDO TODAS AS PEÇAS DO TABULEIRO E FILTRA COLOR DO PARAMETRO
@@ -251,14 +298,14 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         placeNewPiece('f', 1, new Bishop(board, Color.YELLOW));
         placeNewPiece('g', 1, new Knight(board, Color.YELLOW));
         placeNewPiece('h', 1, new Rook(board, Color.YELLOW));
-        placeNewPiece('a', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('b', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('c', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('d', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('e', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('f', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('g', 2, new Pawn(board, Color.YELLOW));
-        placeNewPiece('h', 2, new Pawn(board, Color.YELLOW));
+        placeNewPiece('a', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('b', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('c', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('d', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('e', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('f', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('g', 2, new Pawn(board, Color.YELLOW, this));
+        placeNewPiece('h', 2, new Pawn(board, Color.YELLOW, this));
 
         placeNewPiece('a', 8, new Rook(board, Color.BLUE));
         placeNewPiece('b', 8, new Knight(board, Color.BLUE));
@@ -268,13 +315,13 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         placeNewPiece('f', 8, new Bishop(board, Color.BLUE));
         placeNewPiece('g', 8, new Knight(board, Color.BLUE));
         placeNewPiece('h', 8, new Rook(board, Color.BLUE));
-        placeNewPiece('a', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('b', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('c', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('d', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('e', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('f', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('g', 7, new Pawn(board, Color.BLUE));
-        placeNewPiece('h', 7, new Pawn(board, Color.BLUE));
+        placeNewPiece('a', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('b', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('c', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('d', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('e', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('f', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('g', 7, new Pawn(board, Color.BLUE, this));
+        placeNewPiece('h', 7, new Pawn(board, Color.BLUE, this));
     }
 }
