@@ -33,11 +33,18 @@ public class Program {  // CLASSE DA APICAÇÃO QUE VAI USAR A CAMADA DE XADREZ
                 ChessPosition target = UI.readChessPosition(sc);
 
                 ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-                // EXECUTANDO MOVIMENTO DE XADREZ E RETORNAR POSSIVEL PEÇA CAPTURED..
+                // EXECUTANDO MOVIMENTO DE XADREZ E RETORNAR POSSIVEL PEÇA CAPTURED..QUE RETORNA QUEEN NO LUGAR POR PADRAO
 
                 if (capturedPiece != null) { // SE PEÇA CAPTURADA FOR DIFERENTE DE NULL, SIGNIFICA Q ALGUMA PECA FOI CAPTURADA
                     captured.add(capturedPiece); // ACRESCENTA A PEÇA PARA LISTA DE CAPTURADAS
                 }
+
+                if(chessMatch.getPromoted() != null)  { // SE ESTA PARTIDA FOR != DE NULL, SIGNIFICA QUE UMA PEÇA FOI PROMOVIDA
+                    System.out.print("Enter piece for promotion (B/N/R/Q): ");
+                    String type = sc.nextLine();
+                    chessMatch.replacePromotedPiece(type);
+                }
+
            }
             catch (ChessException e) {
                 System.out.println(e.getMessage());

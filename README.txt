@@ -311,7 +311,6 @@ ________________________________________________________________________________
 // JOGADA ESPECIAL DO XADREZ, ONDE O REI SE MOVE DUAS CASAS PARA A ESQUERDA OU PARA A DIREITA, E A TORRE MOVE PARA A CASA DO LADO DO REI
 
 
-![Roque](https://github.com/Zake77/Chess-system-java/assets/105455950/7b18c427-0945-46db-bef9-8459b94017f5)
 ____________________________________________________________________________________________________________________________________________________
 
         Special move - En passant // CAPTURA EN PASSANT
@@ -324,4 +323,13 @@ ________________________________________________________________________________
         • Update ChessMatch.UndoMove
         • Update ChessMatch.InitialSetup
 // CAPTURA EN PASSANT, É UMA JOGADA ESPECIAL DO XADREZ, ONDE O PEÃO SE MOVE DUAS CASAS, E O ADVERSARIO PODE CAPTURA-LO COMO SE ELE TIVESSE SE MOVIMENTADO APENAS UMA CASA
+____________________________________________________________________________________________________________________________________________________
+
+        Special move - Promotion // PROMOÇÃO
+    Checklist:
+        • Property ChessMatch.Promoted
+        • Update ChessMatch.PerformChessMove
+        • Method ChessMatch.ReplacePromotedPiece
+        • Update Program logic
+// PROMOÇÃO É UMA JOGADA ESPECIAL DO XADREZ, ONDE O PEÃO CHEGA NO OUTRO LADO DO TABULEIRO, E ELE PODE SER PROMOVIDO A UMA OUTRA PEÇA, QUE NÃO SEJA O PEÃO
 

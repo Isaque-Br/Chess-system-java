@@ -5,6 +5,7 @@ import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.*;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
     private boolean check;
     private boolean checkMate;
     private ChessPiece enPassantVulnerable; // PEÇA VULNERAVEL AO ENPASSANT
+    private ChessPiece promoted; // PEÇA PROMOVIDA PROPERTY
 
     private List<Piece> piecesOnTheBoard = new ArrayList<>(); // LISTA DO BOARD INSTANCIADA QUANDO OBJETO ChessMatch FOR CRIADO / PODE COLOCAR NO CONATRUTOR TBM
     private List<Piece> capturedPieces = new ArrayList<>(); // LISTA DE PEÇAS CAPTURADAS
@@ -51,6 +53,10 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         return enPassantVulnerable;
     }
 
+    public ChessPiece getPromoted() { // METODO GET PARA TER ACESSO NO PROGRAMA PRINCIPAL
+        return promoted;
+    }
+
     // METODO QUE RETORNA UMA MATRIX DE PEÇAS DE XADREZ - CORRESPONDENTE A ESSA PARTIDA
     public ChessPiece[][] getPieces() { // O PROGRAMA SÓ VAI PODER ENXERGAR A PEÇA DE XADREZ E NÃO A PEÇA INTERNA DO TABULEIRO
         ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()]; // LIBERA PARA O PROGRAMA UMA MATRIX DO TIPO CHESSPIECE
@@ -81,7 +87,19 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             throw new ChessException("You can't put yourself in check");
         }
 
-        ChessPiece movedPiece = (ChessPiece)board.piece(target); // DOWNCASTING DA PEÇA QUE FOI MOVIDA
+        ChessPiece movedPiece = (ChessPiece)board.piece(target); // DOWNCASTING PRA RECEBER A PEÇA DE XADREZ
+
+        // // # SPECIAL MOVE PROMOTION / PROMOÇÃO DE PEÃO
+        promoted = null;
+        if (movedPiece instanceof Pawn) { // SE A PEÇA MOVIDA FOR UM PEÃO
+            if (movedPiece.getColor() == Color.YELLOW && target.getRow() == 0 || movedPiece.getColor() == Color.BLUE && target.getRow() == 7) { // SE A PEÇA MOVIDA FOR AMARELA E CHEGAR NA LINHA 0 OU SE A PEÇA MOVIDA FOR AZUL E CHEGAR NA LINHA 7
+                promoted = (ChessPiece)board.piece(target); // PROMOVIDA RECEBE A PEÇA QUE FOI MOVIDA
+                promoted = replacePromotedPiece("Q"); // PROMOVIDA RECEBE A PEÇA QUE FOI MOVIDA E SUBSTITUI PELA PEÇA QUE O USUARIO DIGITAR
+            }
+        }
+
+        // # SPECIAL MOVE PROMOTION / PROMOÇÃO DE PEÃO
+         // INICIALIZANDO A PEÇA PROMOVIDA COM NULL PRA ASSEGURA QUE É UM NOVO TESTE
 
         // SE TESTCHECK DO OPONENT DO CURRENTPLAYER SE TRUE, PARTIDA EM CHECK SENAO: NAO ESTA EM CHECK
         check = (testCheck(opponent(currentPlayer))) ? true : false;
@@ -103,6 +121,33 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
         }
 
             return (ChessPiece) capturedPiece; // DOWNCASTING DA PEÇA CAPTURADA PARA TIPO PIECE
+    }
+
+    public ChessPiece replacePromotedPiece(String type) { // METODO QUE RECEBE O TIPO DA PEÇA QUE O USUARIO DIGITAR
+        if (promoted == null) { // SE A PEÇA PROMOVIDA FOR NULL
+            throw new IllegalStateException("There is no piece to be promoted"); // LANÇA EXCEÇÃO
+        }
+        if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) { // SE O USUARIO DIGITAR ALGO DIFERENTE DESSAS LETRAS
+            throw new InvalidParameterException("Invalid type for promotion");
+        }
+
+        Position pos = promoted.getChessPosition().toPosition(); // PEGANDO A POSIÇÃO DA PEÇA PROMOVIDA
+        Piece p = board.removePiece(pos); // REMOVENDO A PEÇA DA POSIÇÃO
+        piecesOnTheBoard.remove(p); // REMOVENDO A PEÇA DA LISTA DE PEÇAS DO TABULEIRO
+
+        ChessPiece newPiece = newPiece(type, promoted.getColor()); // CRIANDO UMA NOVA PEÇA COM O TIPO QUE O USUARIO DIGITAR E A COR DA PEÇA PROMOVIDA
+        board.placePiece(newPiece, pos); // COLOCANDO A NOVA PEÇA NA POSIÇÃO QUE A PEÇA PROMOVIDA ESTAVA
+        piecesOnTheBoard.add(newPiece); // ADICIONANDO A NOVA PEÇA NA LISTA DE PEÇAS DO TABULEIRO
+
+        return newPiece; // RETORNANDO A NOVA PEÇA
+    }
+
+    // METODO AUXILIAR QUE RECEBE A PEÇA QUE FOI MOVIDA E A POSIÇÃO DE ORIGEM E DESTINO
+    private ChessPiece newPiece(String type, Color color) { // METODO QUE RECEBE O TIPO DA PEÇA E A COR
+        if (type.equals("B")) return new Bishop(board, color); // SE O TIPO FOR BISPO RETORNA UM BISPO
+        if (type.equals("N")) return new Knight(board, color); // SE O TIPO FOR CAVALO RETORNA UM CAVALO
+        if (type.equals("Q")) return new Queen(board, color); // SE O TIPO FOR RAINHA RETORNA UMA RAINHA
+        return new Rook(board, color); // SE O TIPO FOR TORRE RETORNA UMA TORRE
     }
 
     private Piece makeMove(Position source, Position target) { // METODO QUE MOVIMENTA DE DESTINO ORIGEM PARA DESTINO
