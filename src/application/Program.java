@@ -41,7 +41,11 @@ public class Program {  // CLASSE DA APICAÇÃO QUE VAI USAR A CAMADA DE XADREZ
 
                 if(chessMatch.getPromoted() != null)  { // SE ESTA PARTIDA FOR != DE NULL, SIGNIFICA QUE UMA PEÇA FOI PROMOVIDA
                     System.out.print("Enter piece for promotion (B/N/R/Q): ");
-                    String type = sc.nextLine();
+                    String type = sc.nextLine().toUpperCase();
+                    while (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) { // ENQUANTO O USUARIO NAO DIGITAR UMA DAS OPÇÕES
+                        System.out.print("Invalid value! Enter piece for promotion (B/N/R/Q): ");
+                        type = sc.nextLine().toUpperCase();
+                    }
                     chessMatch.replacePromotedPiece(type);
                 }
 

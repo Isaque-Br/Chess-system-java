@@ -5,7 +5,6 @@ import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.*;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -128,7 +127,7 @@ public class ChessMatch {  // CLASSE PARTIDA DE XADREZ / CORAÇÃO DO SISTEMA XA
             throw new IllegalStateException("There is no piece to be promoted"); // LANÇA EXCEÇÃO
         }
         if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) { // SE O USUARIO DIGITAR ALGO DIFERENTE DESSAS LETRAS
-            throw new InvalidParameterException("Invalid type for promotion");
+            return promoted; // RETORNA A PEÇA PROMOVIDA
         }
 
         Position pos = promoted.getChessPosition().toPosition(); // PEGANDO A POSIÇÃO DA PEÇA PROMOVIDA
